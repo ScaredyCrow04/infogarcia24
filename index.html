@@ -5,35 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoGarcía 24</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {{ background-color: #f4f7f6; font-family: sans-serif; }}
-        .navbar {{ background-color: #002d5a; }}
-        .hero {{ background-color: #002d5a; color: white; padding: 40px 0; text-align: center; }}
-        .card-noticia {{ border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; padding: 25px; background: white; border-radius: 8px; }}
-        .badge-alerta {{ background-color: #ff6600; color: white; padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; }}
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        .navbar { background-color: #002d5a; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .bg-orange { background-color: #ff6600; color: white; }
+        .border-start-yellow { border-left: 5px solid #ffc107; border-top: none; border-right: none; border-bottom: none; }
+        .border-start-green { border-left: 5px solid #28a745; border-top: none; border-right: none; border-bottom: none; }
+        .hero-section { background-color: #002d5a; color: white; padding: 30px 0; margin-bottom: 25px; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark p-3"><div class="container"><a class="navbar-brand" href="#">InfoGarcía 24</a></div></nav>
-    <div class="hero"><h1>InfoGarcía 24</h1><p>La voz de la zona industrial de García, N.L.</p></div>
-    <div class="container mt-4"><div class="row justify-content-center"><div class="col-md-9">
-        
-<div class="card-noticia" style="border-top: 5px solid #ff6600;">
-    <span class="badge-alerta">URGENTE</span>
-    <h2 class="mt-3">Análisis: Estabilidad laboral y el futuro del reparto de utilidades</h2>
-    <p class="lead">Especialistas señalan que la continuidad operativa en las plantas de García es el único factor que garantiza el excedente en los bonos de mayo.</p>
-    <small class="text-muted">Actualizado: 22/04/2026 20:20</small>
+    <nav class="navbar navbar-dark mb-0">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">InfoGarcía 24</a>
+        </div>
+    </nav>
+    
+    <div class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-6 fw-bold">InfoGarcía 24</h1>
+            <p class="lead mb-0">La voz de la zona industrial de García, N.L.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+<div class="card shadow-sm mb-4" style="border-top: 5px solid #ff6600;">
+    <div class="card-body">
+        <span class="badge bg-orange mb-2">URGENTE</span>
+        <h2 class="h3 card-title">Análisis: Estabilidad laboral y el futuro del reparto de utilidades</h2>
+        <p class="card-text lead">Especialistas señalan que la continuidad operativa en las plantas de García es el único factor que garantiza el excedente en los bonos de mayo.</p>
+        <div class="text-muted" style="font-size: 0.8rem;">Actualizado: 22/04/2026 20:24</div>
+    </div>
 </div>
 
-    <div class="card-noticia" style="border-left: 5px solid #ffc107;">
-        <small class="text-warning fw-bold">VIALIDAD - 20:20</small>
-        <p>Bache profundo en Mitras Poniente.</p>
+    <div class="card mb-3 border-start-yellow">
+        <div class="card-body py-2">
+            <small class="text-warning fw-bold">VIALIDAD - 20:24</small>
+            <p class="mb-0 small">Neblina ligera en Ctra. Saltillo.</p>
+        </div>
     </div>
-    <div class="card-noticia" style="border-left: 5px solid #28a745;">
-        <small class="text-success fw-bold">CLIMA - 20:20</small>
-        <p>Humedad alta detectada.</p>
+    <div class="card mb-3 border-start-green">
+        <div class="card-body py-2">
+            <small class="text-success fw-bold">CLIMA - 20:24</small>
+            <p class="mb-0 small">Cielo despejado en zona industrial.</p>
+        </div>
     </div>
-    </div></div></div>
+    
+                <hr class="my-4">
+                <h5 class="text-muted mb-3">Servicios a la Comunidad</h5>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
