@@ -1,0 +1,17 @@
+name: Actualizar Noticias
+on:
+  schedule:
+    - cron: '0 */2 * * *' # Corre solo cada 2 horas
+  workflow_dispatch: # Botón para correrlo manual
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: python cuervo_bot.py
+      - run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update" || exit 0
+          git push
