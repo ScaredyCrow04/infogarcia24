@@ -6,9 +6,8 @@ from bs4 import BeautifulSoup
 
 def generar_sitio():
     noticias_html = ""
-    
-    # Cambiamos a ABC Noticias (Monterrey) que es menos estricto con el Status 403
-    url_rss = "https://abcnoticias.mx/rss/local"
+    # Nueva fuente: El Porvenir (uno de los más antiguos y estables en su RSS)
+    url_rss = "https://elporvenir.mx/xml/rss/monterrey.xml"
     
     # Narrativa estratégica
     op = {
@@ -26,43 +25,42 @@ def generar_sitio():
     </div>"""
 
     try:
-        # Headers ultra-reales para evitar el 403
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
-        }
-        
+        # Headers genéricos pero seguros
+        headers = {'User-Agent': 'Mozilla/5.0'}
         r = requests.get(url_rss, headers=headers, timeout=15)
         
         if r.status_code == 200:
             feed = feedparser.parse(r.content)
             
-            # Si ABC no jala, intentamos un respaldo rápido de otro medio
+            # Si el anterior falla, intentamos Google News Monterrey como último recurso
             if not feed.entries:
-                r = requests.get("https://www.elhorizonte.mx/rss/seccion/monterrey", headers=headers, timeout=10)
+                r = requests.get("https://news.google.com/rss/search?q=Monterrey&hl=es-419&gl=MX&ceid=MX:es-419", headers=headers, timeout=10)
                 feed = feedparser.parse(r.content)
 
             for entry in feed.entries[:6]:
-                # Limpiar el resumen de etiquetas HTML
-                resumen = BeautifulSoup(entry.summary, "html.parser").get_text()[:120] if 'summary' in entry else ""
+                # Limpiar texto
+                desc = ""
+                if 'summary' in entry:
+                    desc = BeautifulSoup(entry.summary, "html.parser").get_text()[:110]
                 
                 noticias_html += f"""
                 <div class="card mb-3 border-0 shadow-sm" style="border-radius: 15px;">
                     <div class="card-body py-3">
                         <h6 class="fw-bold mb-1" style="color:#222; line-height: 1.4;">{entry.title}</h6>
-                        <p class="text-muted mb-2" style="font-size: 0.8rem;">{resumen}...</p>
+                        <p class="text-muted mb-2" style="font-size: 0.8rem;">{desc}...</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-muted" style="font-size: 0.65rem;">Fuente: Regional</span>
+                            <span class="text-muted" style="font-size: 0.6rem;">INFO LOCAL</span>
                             <a href="{entry.link}" target="_blank" class="btn btn-sm btn-link p-0 text-decoration-none fw-bold" style="font-size: 0.75rem;">LEER NOTA →</a>
                         </div>
                     </div>
                 </div>"""
         else:
-            noticias_html += f"<p class='text-center text-muted mt-4'>Servidor de noticias en mantenimiento (Status: {r.status_code})</p>"
+            noticias_html += f"<p class='text-center text-muted mt-4 small px-3'>Sincronizando con el nodo regional... (Status: {r.status_code})</p>"
             
-    except Exception as e:
-        noticias_html += f"<p class='text-center text-muted mt-4'>Actualizando conexión regional...</p>"
+    except Exception:
+        noticias_html += f"<p class='text-center text-muted mt-4 small'>Actualizando flujo de noticias...</p>"
 
+    # Hora de Monterrey
     hora_mty = (datetime.utcnow() - timedelta(hours=6)).strftime("%H:%M")
 
     return f"""
